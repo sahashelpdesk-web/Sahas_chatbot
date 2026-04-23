@@ -2,6 +2,23 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 import json
 from rapidfuzz import fuzz
+from datetime import datetime
+
+def is_greeting(query):
+    greetings = [
+        "hi", "hello", "hey",
+        "good morning", "good afternoon", "good evening",
+        "gm", "gn", "good night",
+        "hii", "helo", "hy"
+    ]
+
+    return any(greet in query for greet in greetings)
+
+def is_thanks(query):
+    return any(word in query for word in ["thanks", "thank you", "thx"])
+
+def is_bye(query):
+    return any(word in query for word in ["bye", "goodbye", "see you"])
 
 app = FastAPI()
 
