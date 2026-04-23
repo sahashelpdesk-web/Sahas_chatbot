@@ -4,25 +4,11 @@ import json
 from rapidfuzz import fuzz
 from datetime import datetime
 
-def is_greeting(query):
-    greetings = [
-        "hi", "hello", "hey",
-        "good morning", "good afternoon", "good evening",
-        "gm", "gn", "good night",
-        "hii", "helo", "hy"
-    ]
-
-    return any(greet in query for greet in greetings)
-
-def is_thanks(query):
-    return any(word in query for word in ["thanks", "thank you", "thx"])
-
-def is_bye(query):
-    return any(word in query for word in ["bye", "goodbye", "see you"])
-
 app = FastAPI()
 
-# Load KB
+# -------------------------------
+# 📂 LOAD KB
+# -------------------------------
 with open("kb.json", encoding="utf-8") as f:
     KB = json.load(f)
 
@@ -31,6 +17,33 @@ with open("kb.json", encoding="utf-8") as f:
 # -------------------------------
 def preprocess(query):
     return query.lower().strip()
+
+# -------------------------------
+# 👋 GREETING LOGIC
+# -------------------------------
+def get_greeting():
+    hour = datetime.now().hour
+    if hour < 12:
+        return "Good morning ☀️"
+    elif hour < 17:
+        return "Good afternoon 🌤️"
+    else:
+        return "Good evening 🌙"
+
+def is_greeting(query):
+    greetings = [
+        "hi", "hello", "hey",
+        "good morning", "good afternoon", "good evening",
+        "gm", "gn", "good night",
+        "hii", "helo", "hy"
+    ]
+    return any(greet in query for greet in greetings)
+
+def is_thanks(query):
+    return any(word in query for word in ["thanks", "thank you", "thx"])
+
+def is_bye(query):
+    return any(word in query for word in ["bye", "goodbye", "see you"])
 
 # -------------------------------
 # 🔍 SMART SEARCH
@@ -52,7 +65,7 @@ def search_kb(query):
             best_score = score
             best_match = item
 
-    if best_score >= 70:
+    if best_score >= 65:   # slightly relaxed for better matching
         return best_match["answer"]
 
     return None
@@ -72,22 +85,48 @@ def home():
 def ask(query: str):
     query = preprocess(query)
 
-    # greetings
-    if query in ["hi", "hello", "hey"]:
-        return {"reply": "Hi 👋\nHow can I help you today?"}
+    # 👋 Greeting
+    if is_greeting(query):
+        return {
+            "reply": (
+                f"{get_greeting()} 👋\n\n"
+                "Welcome to Sahas Support.\n\n"
+                "I can help you with:\n"
+                "• HR queries\n"
+                "• Paybill issues\n"
+                "• FMS queries\n\n"
+                "Please tell me your issue 😊"
+            )
+        }
 
+    # 🙏 Thanks
+    if is_thanks(query):
+        return {
+            "reply": "You're welcome 😊\nLet me know if you need any further assistance!"
+        }
+
+    # 👋 Bye
+    if is_bye(query):
+        return {
+            "reply": "Goodbye 👋\nHave a great day!"
+        }
+
+    # 🔍 Search KB
     answer = search_kb(query)
 
     if answer:
-        return {"reply": f"{answer}"}
+        return {
+            "reply": f"{answer}"
+        }
 
+    # ❌ Fallback
     return {
         "reply": (
-            "I’m sorry, I couldn’t find a relevant answer to your query.\n\n"
-            "Kindly rephrase your question or provide more details.\n\n"
-            "Alternatively, you may contact us at sahas@aiims.edu.\n\n"
-            "For specific concerns:\n"
-            "• HR-related queries: Mr. Pawan\n"
+            "Hmm 🤔 I couldn’t find an exact answer.\n\n"
+            "Please try rephrasing your question.\n\n"
+            "📧 Email: sahas@aiims.edu\n\n"
+            "For specific queries:\n"
+            "• HR: Mr. Pawan\n"
             "• Paybill: Mr. Divya Mohan\n"
             "• FMS: Mr. Ankur"
         )
