@@ -64,4 +64,14 @@ def ask(query: str):
     if answer:
         return {"reply": f"{answer}"}
 
-    return {"reply": "I couldn’t find that 🤔\nPlease rephrase your question."}
+   return {
+    "reply": (
+        "I’m sorry, I couldn’t find a relevant answer to your query.\n\n"
+        "Kindly rephrase your question or provide more details.\n\n"
+        "Alternatively, you may contact us at sahas@aiims.edu.\n\n"
+        "For specific concerns:\n"
+        "• HR-related queries: Mr. Pawan\n"
+        "• Paybill: Mr. Divya Mohan\n"
+        "• FMS: Mr. Ankur"
+    )
+}
