@@ -45,7 +45,7 @@ def search_kb(query):
 # -------------------------------
 @app.get("/", response_class=HTMLResponse)
 def home():
-    with open("templates/index.html", encoding="utf-8") as f:
+    with open("index.html", encoding="utf-8") as f:
         return f.read()
 
 # -------------------------------
