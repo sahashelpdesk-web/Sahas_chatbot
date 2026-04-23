@@ -120,14 +120,17 @@ def ask(query: str):
         }
 
     # ❌ Fallback
-    return {
-        "reply": (
-            "Hmm 🤔 I couldn’t find an exact answer.\n\n"
-            "Please try rephrasing your question.\n\n"
-            "📧 Email: sahas@aiims.edu\n\n"
-            "For specific queries:\n"
-            "• HR: Mr. Pawan\n"
-            "• Paybill: Mr. Divya Mohan\n"
-            "• FMS: Mr. Ankur"
-        )
-    }
+
+return {
+    "reply": (
+        "Hmm 🤔 I couldn’t find an exact answer.<br><br>"
+        "Please try rephrasing your question.<br><br>"
+        "📧 <b>Email us:</b> "
+        "<a href='mailto:sahas@aiims.edu' target='_blank'>sahas@aiims.edu</a><br><br>"
+        "Our team will resolve your query.<br><br>"
+        "<b>For specific queries:</b><br>"
+        "• HR: Mr. Pawan<br>"
+        "• Paybill: Mr. Divya Mohan<br>"
+        "• FMS: Mr. Ankur"
+    )
+}
