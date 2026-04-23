@@ -103,8 +103,61 @@
   {
     "question": "unable to login login issue cannot login password problem",
     "answer": "No worries 👍 You can reset your password easily:\n\n1️⃣ Click on 'Forgot Password'\n2️⃣ Enter your User ID (Employee Number)\n3️⃣ Enter your registered mobile number\n4️⃣ Enter OTP received on your phone\n5️⃣ Set a new password\n\nYou should be able to log in after this."
-  }
+  },
 
+  {
+    "question": "record not found in hr bank account update pfms number not found employee hr mapping issue",
+    "answer": "It looks like the employee record is not mapped correctly in HR.\n\n👉 Please map the employee with the correct Dealing Hand ID.\n\nOnce mapping is completed, the record should appear."
+  },
+  {
+    "question": "leave encashment retirement option not available payment option missing retirement issue",
+    "answer": "This option is available only for employees who are no longer in service.\n\n👉 Please check the employee status in Current Data.\n\nIf the employee is still active, the retirement option will not be visible."
+  },
+  {
+    "question": "record not found in paybill pay bill missing employee not found paybill issue",
+    "answer": "This is usually related to role mapping.\n\n👉 Please check in User Role if Category and Sub-category are properly mapped.\n\nAfter mapping, the record should be visible."
+  },
+  {
+    "question": "employee not found in salary bill salary bill missing employee not visible salary stopped category issue",
+    "answer": "Please check the following:\n\n👉 Ensure employee salary is not stopped\n👉 Verify the employee belongs to the correct category\n\nAfter correction, the employee should appear in the salary bill."
+  },
+  {
+    "question": "employee basic not correct wrong basic salary incorrect basic pay issue",
+    "answer": "There seems to be an issue with basic pay configuration.\n\n👉 Please update the correct Basic in Current Data Validation History\n👉 Also verify the Basic Effective Date\n\nThis should fix the discrepancy."
+  },
+  {
+    "question": "pfms file dispatched but want to reject compilation pfms reject issue bank reconciliation",
+    "answer": "Once PFMS file is dispatched, it cannot be directly rejected from the system.\n\n👉 Please contact FA (Finance Authority)\n👉 Rejection will be handled from Bank Reconciliation\n\nKindly coordinate with the concerned authority."
+  },
+  {
+    "question": "employee terminated and rejoined income tax calculation fy multiple employee id pan linking",
+    "answer": "In such cases, both employee IDs are linked to the same PAN.\n\n👉 SAHAS will consider combined income for the financial year.\n\nSo income tax will be calculated based on total earnings across both IDs."
+  },
+  {
+    "question": "leave encashment vrs case voluntary retirement scheme leave encashment applicable or not",
+    "answer": "Leave encashment is not applicable in VRS (Voluntary Retirement Scheme) cases.\n\n👉 No action is required as per system rules."
+  },
+  {
+    "question": "salary demand rejected where bill visible demand generation rejected bill location",
+    "answer": "If a salary demand is rejected, the bill will move to:\n\n👉 Salary Bill Unfreeze Process\n\nYou can access and process it from there."
+  },
+  {
+    "question": "bill not visible for approval authority cannot see bill mapping issue approval problem",
+    "answer": "This is most likely a mapping issue.\n\n👉 Please verify user-role mapping and approval hierarchy.\n\nOnce mapping is corrected, the bill will be visible for approval."
+  },
+  {
+    "question": "change financial year children education allowance cea financial year update",
+    "answer": "This change cannot be done directly.\n\n👉 Please raise an activity/request for updating the financial year.\n\nThe concerned team will process it."
+  },
+  {
+    "question": "employee getting negative salary salary negative issue deduction more than earning",
+    "answer": "Negative salary occurs when deductions exceed earnings.\n\n👉 Please review all deductions applied\n👉 Compare with total earnings\n\nAdjustments may be required to balance the salary."
+  },
+  {
+    "question": "reject bill after freeze salary bill frozen want to reject unfreeze process",
+    "answer": "Once a bill is frozen, it cannot be edited directly.\n\n👉 Please use the Salary Bill Unfreeze Process\n\nAfter unfreezing, you can reject or modify the bill."
+  }
+]
 
   
 ]
