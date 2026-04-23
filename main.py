@@ -118,15 +118,21 @@ def ask(query: str):
         return {
             "reply": f"{answer}"
         }
+        # 🔍 Search KB
+answer = search_kb(query)
 
-    # ❌ Fallback
+if answer:
+    return {
+        "reply": f"{answer}"
+    }
+
 
 return {
     "reply": (
         "Hmm 🤔 I couldn’t find an exact answer.<br><br>"
         "Please try rephrasing your question.<br><br>"
         "📧 <b>Email us:</b> "
-        "<a href='mailto:sahas@aiims.edu' target='_blank'>sahas@aiims.edu</a><br><br>"
+        "<a href='mailto:sahas@aiims.edu?subject=Sahas Support Query&body=Hi Team,' target='_blank'>sahas@aiims.edu</a><br><br>"
         "Our team will resolve your query.<br><br>"
         "<b>For specific queries:</b><br>"
         "• HR: Mr. Pawan<br>"
@@ -134,3 +140,5 @@ return {
         "• FMS: Mr. Ankur"
     )
 }
+
+
