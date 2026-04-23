@@ -59,5 +59,52 @@
   {"question": "employee arrears not showing", "answer": "Check subscription date."},
   {"question": "income tax rebate missing", "answer": "Check income tax assessment."},
   {"question": "negative arrears", "answer": "Update subscription date."},
-  {"question": "salary not paid for some days", "answer": "Set partial salary and generate supplementary bill."}
+  {"question": "salary not paid for some days", "answer": "Set partial salary and generate supplementary bill."},
+  {
+    "question": "employee not found employee missing not visible user not found record not found",
+    "answer": "It looks like the employee is not mapped in the system.\n\n👉 Please ensure that employee mapping has been completed.\n\nIf the issue still persists, kindly check with your admin."
+  },
+  {
+    "question": "reports not showing report not visible report missing dashboard empty",
+    "answer": "This usually happens due to missing menu access.\n\n👉 Please ask the Admin to complete the menu mapping from the Admin Module.\n\nOnce done, the reports should start appearing."
+  },
+  {
+    "question": "employee id created but not showing current data not visible new employee not showing",
+    "answer": "It seems the employee has not been accepted yet.\n\n👉 Please go to Employee Acceptance and approve the employee.\n\nAfter acceptance, the employee will appear in current data."
+  },
+  {
+    "question": "arrears not showing even after subscribe arrears missing subscription issue",
+    "answer": "This is usually related to the subscription date.\n\n👉 Please verify the subscription date carefully.\n\nIf the date is incorrect, arrears will not reflect."
+  },
+  {
+    "question": "income tax rebate not received rebate missing tax issue",
+    "answer": "Please check the Income Tax Assessment and Rebate section.\n\n👉 Ensure all details are correctly filled and processed.\n\nIf still not reflected, verify calculations or contact support."
+  },
+  {
+    "question": "actual income incorrect salary mismatch wrong salary details less more amount",
+    "answer": "There might be a discrepancy in salary records.\n\n👉 Please check the Employee Ledger for detailed breakdown.\n\nThis will help identify where the difference is coming from."
+  },
+  {
+    "question": "negative arrear showing minus arrear issue",
+    "answer": "Negative arrears usually occur due to incorrect subscription date.\n\n👉 Please review and update the subscription date.\n\nAfter correction, the issue should resolve."
+  },
+  {
+    "question": "compilation dispatch report amount mismatch pfms difference amount not matching",
+    "answer": "This mismatch is generally caused by negative entries from Paybill.\n\n👉 Please check Paybill entries for any negative values.\n\nCorrecting them should align the amounts."
+  },
+  {
+    "question": "employee id not showing current data even after acceptance wrong id old id issue",
+    "answer": "You might be using an old or incorrect employee ID.\n\n👉 Please verify the correct employee ID in IT Assessment.\n\nUse the updated ID to resolve the issue."
+  },
+  {
+    "question": "salary not provided for some days partial salary missing salary incomplete month",
+    "answer": "This happens when salary is not processed for all days.\n\n👉 Please set Partial Salary first.\n👉 Then process Supplementary Salary.\n\nThis will ensure complete salary processing."
+  },
+  {
+    "question": "unable to login login issue cannot login password problem",
+    "answer": "No worries 👍 You can reset your password easily:\n\n1️⃣ Click on 'Forgot Password'\n2️⃣ Enter your User ID (Employee Number)\n3️⃣ Enter your registered mobile number\n4️⃣ Enter OTP received on your phone\n5️⃣ Set a new password\n\nYou should be able to log in after this."
+  }
+
+
+  
 ]
