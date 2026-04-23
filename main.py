@@ -1,57 +1,67 @@
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 import json
-import requests
 from rapidfuzz import fuzz
 
 app = FastAPI()
 
+# Load KB
 with open("kb.json", encoding="utf-8") as f:
     KB = json.load(f)
 
-GROQ_API_KEY = "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"
+# -------------------------------
+# 🔧 PREPROCESS
+# -------------------------------
+def preprocess(query):
+    return query.lower().strip()
 
+# -------------------------------
 # 🔍 SMART SEARCH
+# -------------------------------
 def search_kb(query):
-    query = query.lower()
     best_match = None
     best_score = 0
 
     for item in KB:
-        score = fuzz.partial_ratio(query, item["question"])
+        q = item["question"].lower()
+
+        score1 = fuzz.partial_ratio(query, q)
+        score2 = fuzz.token_sort_ratio(query, q)
+        score3 = fuzz.token_set_ratio(query, q)
+
+        score = (score1 + score2 + score3) / 3
+
         if score > best_score:
             best_score = score
             best_match = item
 
-    if best_score > 60:
+    if best_score >= 70:
         return best_match["answer"]
-    else:
-        return "No exact match found in KB."
 
-# 🤖 GROQ CALL (ONLY ONCE)
-def ask_groq(query, context):
-    url = "https://api.groq.com/openai/v1/chat/completions"
+    return None
 
-    headers = {
-        "Authorization": f"Bearer {GROQ_API_KEY}",
-        "Content-Type": "application/json"
-    }
+# -------------------------------
+# 🌐 CHAT UI
+# -------------------------------
+@app.get("/", response_class=HTMLResponse)
+def home():
+    with open("templates/index.html", encoding="utf-8") as f:
+        return f.read()
 
-    data = {
-        "model": "llama3-70b-8192",
-        "messages": [
-            {"role": "system", "content": "Answer ONLY from context. Be short."},
-            {"role": "user", "content": f"Question: {query}\nContext: {context}"}
-        ]
-    }
-
-    res = requests.post(url, headers=headers, json=data)
-    return res.json()["choices"][0]["message"]["content"]
-
+# -------------------------------
+# 🤖 CHAT API
+# -------------------------------
 @app.get("/ask")
 def ask(query: str):
-    context = search_kb(query)
+    query = preprocess(query)
 
-    # 🔥 ONLY 1 CREDIT USED HERE
-    answer = ask_groq(query, context)
+    # greetings
+    if query in ["hi", "hello", "hey"]:
+        return {"reply": "Hi 👋\nHow can I help you today?"}
 
-    return {"answer": answer}
+    answer = search_kb(query)
+
+    if answer:
+        return {"reply": f"{answer}"}
+
+    return {"reply": "I couldn’t find that 🤔\nPlease rephrase your question."}
