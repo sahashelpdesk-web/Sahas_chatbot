@@ -120,19 +120,32 @@ def ask(query: str):
 
     # ❌ Fallback
     return {
-        "reply": (
-            "Hmm 🤔 I couldn’t find an exact answer to your question.\n\n"
-            "👉 You can try rephrasing it in a simpler way.\n\n"
-            "💡 Example:\n"
-            "• 'Employee not showing in salary bill'\n"
-            "• 'PFMS file mismatch issue'\n\n"
-            "📧 <b>Need more help?</b><br>"
-            "<a href='mailto:sahas@aiims.edu?subject=Sahas Support Query&body=Hi Team,' target='_blank'>"
-            "Click here to email support</a><br><br>"
-            "Our team will assist you shortly.\n\n"
-            "<b>For direct queries:</b><br>"
-            "• HR: Mr. Pawan<br>"
-            "• Paybill: Mr. Divya Mohan<br>"
-            "• FMS: Mr. Ankur"
-        )
-    }
+    "reply": (
+        "Hmm 🤔 I couldn’t find an exact answer to your question.<br><br>"
+        "👉 You can try rephrasing it in a simpler way.<br><br>"
+
+        "💡 <b>Examples:</b><br>"
+        "• Employee not showing in salary bill<br>"
+        "• PFMS file mismatch issue<br><br>"
+
+        "📧 <b>Need more help?</b><br>"
+        "<a href='mailto:sahas@aiims.edu?subject=Sahas Support Query&body=Hi Team,' target='_blank'>"
+        "📩 Email Support</a><br><br>"
+
+        "📱 <b>Or contact directly on WhatsApp:</b><br><br>"
+
+        "• HR (Mr. Pawan): "
+        "<a href='https://wa.me/918800155902?text=Hi%20Pawan%20Sir,%20I%20have%20an%20HR%20query%20from%20Sahas%20chatbot' target='_blank'>"
+        "8800155902</a><br>"
+
+        "• Paybill (Mr. Divya Mohan): "
+        "<a href='https://wa.me/91XXXXXXXXXX?text=Hi%20Sir,%20I%20have%20a%20Paybill%20query%20from%20Sahas%20chatbot' target='_blank'>"
+        "8840021359</a><br>"
+
+        "• FMS (Mr. Ankur): "
+        "<a href='https://wa.me/91XXXXXXXXXX?text=Hi%20Sir,%20I%20have%20an%20FMS%20query%20from%20Sahas%20chatbot' target='_blank'>"
+        "9917670730</a><br><br>"
+
+        "Our team will assist you shortly 😊"
+    )
+}
