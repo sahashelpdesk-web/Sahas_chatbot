@@ -4,7 +4,6 @@ import json
 from rapidfuzz import fuzz
 from datetime import datetime
 
-# ✅ IMPORTANT: define app first
 app = FastAPI()
 
 # -------------------------------
@@ -35,10 +34,9 @@ def is_greeting(query):
     greetings = [
         "hi", "hello", "hey",
         "good morning", "good afternoon", "good evening",
-        "gm", "gn", "good night",
-        "hii", "helo", "hy"
+        "gm", "gn", "good night"
     ]
-    return any(greet in query for greet in greetings)
+    return any(query.startswith(greet) for greet in greetings)
 
 def is_thanks(query):
     return any(word in query for word in ["thanks", "thank you", "thx"])
@@ -90,62 +88,75 @@ def ask(query: str):
     if is_greeting(query):
         return {
             "reply": (
-                f"{get_greeting()} 👋\n\n"
-                "Welcome to *Sahas Support* 😊\n\n"
-                "I’m here to help you with:\n"
-                "• HR related queries\n"
-                "• Paybill issues\n"
-                "• FMS concerns\n\n"
-                "👉 Please type your question and I’ll assist you."
+                f"{get_greeting()} 👋<br><br>"
+                "Welcome to <b>Sahas Support</b> 😊<br><br>"
+                "💬 I can help you with:<br>"
+                "• HR queries<br>"
+                "• Paybill issues<br>"
+                "• FMS concerns<br><br>"
+                "👉 Please type your question."
             )
         }
 
     # 🙏 Thanks
     if is_thanks(query):
         return {
-            "reply": "You're welcome 😊\n\nIf you have any other issue, feel free to ask 👍"
+            "reply": (
+                "You're welcome 😊<br><br>"
+                "If you have any other issue, feel free to ask 👍"
+            )
         }
 
     # 👋 Bye
     if is_bye(query):
         return {
-            "reply": "Goodbye 👋\n\nHave a great day ahead! 😊"
+            "reply": (
+                "Goodbye 👋<br><br>"
+                "Have a great day ahead! 😊"
+            )
         }
 
     # 🔍 Search KB
     answer = search_kb(query)
 
     if answer:
-        return {"reply": answer}
+        return {
+            "reply": (
+                "💡 <b>Answer to your query:</b><br><br>"
+                f"{answer}<br><br>"
+                "👍 Hope this helps!<br>"
+                "If not, you can ask again or contact support."
+            )
+        }
 
     # ❌ Fallback
     return {
-    "reply": (
-        "Hmm 🤔 I couldn’t find an exact answer to your question.<br><br>"
-        "👉 You can try rephrasing it in a simpler way.<br><br>"
+        "reply": (
+            "Hmm 🤔 I couldn’t find an exact answer to your question.<br><br>"
+            "👉 You can try rephrasing it in a simpler way.<br><br>"
 
-        "💡 <b>Examples:</b><br>"
-        "• Employee not showing in salary bill<br>"
-        "• PFMS file mismatch issue<br><br>"
+            "💡 <b>Examples:</b><br>"
+            "• Employee not showing in salary bill<br>"
+            "• PFMS file mismatch issue<br><br>"
 
-        "📧 <b>Need more help?</b><br>"
-        "<a href='mailto:sahas@aiims.edu?subject=Sahas Support Query&body=Hi Team,' target='_blank'>"
-        "📩 Email Support</a><br><br>"
+            "📧 <b>Need more help?</b><br>"
+            "<a href='mailto:sahas@aiims.edu?subject=Sahas Support Query&body=Hi Team,' target='_blank'>"
+            "📩 Email Support</a><br><br>"
 
-        "📱 <b>Or contact directly on WhatsApp:</b><br><br>"
+            "📱 <b>Or contact directly on WhatsApp:</b><br><br>"
 
-        "• HR (Mr. Pawan): "
-        "<a href='https://wa.me/918800155902?text=Hi%20Pawan%20Sir,%20I%20have%20an%20HR%20query%20from%20Sahas%20chatbot' target='_blank'>"
-        "8800155902</a><br>"
+            "• HR (Mr. Pawan): "
+            "<a href='https://api.whatsapp.com/send?phone=918800155902&text=Hi%20Pawan%20Sir,%20I%20have%20an%20HR%20query%20from%20Sahas%20chatbot' target='_blank'>"
+            "8800155902</a><br>"
 
-        "• Paybill (Mr. Divya Mohan): "
-        "<a href='https://wa.me/91XXXXXXXXXX?text=Hi%20Sir,%20I%20have%20a%20Paybill%20query%20from%20Sahas%20chatbot' target='_blank'>"
-        "8840021359</a><br>"
+            "• Paybill (Mr. Divya Mohan): "
+            "<a href='https://api.whatsapp.com/send?phone=918840021359&text=Hi%20Sir,%20I%20have%20a%20Paybill%20query%20from%20Sahas%20chatbot' target='_blank'>"
+            "8840021359</a><br>"
 
-        "• FMS (Mr. Ankur): "
-        "<a href='https://wa.me/91XXXXXXXXXX?text=Hi%20Sir,%20I%20have%20an%20FMS%20query%20from%20Sahas%20chatbot' target='_blank'>"
-        "9917670730</a><br><br>"
+            "• FMS (Mr. Ankur): "
+            "<a href='https://api.whatsapp.com/send?phone=919917670730&text=Hi%20Sir,%20I%20have%20an%20FMS%20query%20from%20Sahas%20chatbot' target='_blank'>"
+            "9917670730</a><br><br>"
 
-        "Our team will assist you shortly 😊"
-    )
-}
+            "Our team will assist you shortly 😊"
+        )
+    }
