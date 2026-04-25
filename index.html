@@ -22,7 +22,7 @@
     }
 
     .chat {
-      height: 78vh;
+      height: 75vh;
       overflow-y: auto;
       padding: 15px;
       display: flex;
@@ -35,7 +35,6 @@
       border-radius: 10px;
       max-width: 75%;
       font-size: 14px;
-      position: relative;
     }
 
     .user {
@@ -83,6 +82,25 @@
       font-style: italic;
       color: gray;
     }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+      padding: 10px;
+      background: #f9f9f9;
+      border-top: 1px solid #ddd;
+    }
+
+    .support-btn {
+      display: inline-block;
+      padding: 8px 12px;
+      background: #075e54;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 8px;
+    }
   </style>
 </head>
 
@@ -97,6 +115,11 @@
 <div class="input-box">
   <input id="msg" placeholder="Type your message..." />
   <button onclick="send()">➤</button>
+</div>
+
+<div class="footer">
+  🤖 Sahas Support Chatbot <br>
+  Developed by Mr. Divya Mohan Verma
 </div>
 
 <script>
@@ -119,6 +142,38 @@ function addMessage(text, type) {
   chat.scrollTop = chat.scrollHeight;
 }
 
+// 🔥 SUPPORT TEMPLATE FUNCTION
+function showSupport() {
+  let msg = `
+Hmm 🤔 I couldn’t find an exact answer to your question.<br><br>
+
+👉 You can try rephrasing it in a simpler way.<br><br>
+
+💡 <b>Examples:</b><br>
+• Employee not showing in salary bill<br>
+• PFMS file mismatch issue<br><br>
+
+📧 <b>Need more help?</b><br>
+<a href='mailto:sahas@aiims.edu?subject=Sahas Support Query&body=Hi Team,' target='_blank'>
+📩 Email Support</a><br><br>
+
+📱 <b>Or contact directly on WhatsApp:</b><br><br>
+
+• HR (Mr. Pawan): 
+<a href='https://api.whatsapp.com/send?phone=918800155902&text=Hi%20Pawan%20Sir,%20I%20have%20an%20HR%20query' target='_blank'>8800155902</a><br>
+
+• Paybill (Mr. Divya Mohan): 
+<a href='https://api.whatsapp.com/send?phone=918840021359&text=Hi%20Sir,%20I%20have%20a%20Paybill%20query' target='_blank'>8840021359</a><br>
+
+• FMS (Mr. Ankur): 
+<a href='https://api.whatsapp.com/send?phone=919917670730&text=Hi%20Sir,%20I%20have%20an%20FMS%20query' target='_blank'>9917670730</a><br><br>
+
+Our team will assist you shortly 😊
+  `;
+
+  addMessage(msg, "bot");
+}
+
 async function send() {
   let input = document.getElementById("msg");
   let text = input.value.trim();
@@ -128,7 +183,6 @@ async function send() {
   addMessage(text, "user");
   input.value = "";
 
-  // typing indicator
   let typing = document.createElement("div");
   typing.className = "msg bot typing";
   typing.innerText = "Typing...";
@@ -139,7 +193,14 @@ async function send() {
     let data = await res.json();
 
     typing.remove();
-    addMessage(data.reply, "bot");
+
+    // 🔥 Inject Contact Support button automatically
+    let reply = data.reply.replace(
+      "Contact Support",
+      `<a href="#" onclick="showSupport()" class="support-btn">Contact Support</a>`
+    );
+
+    addMessage(reply, "bot");
 
   } catch {
     typing.remove();
@@ -153,11 +214,8 @@ document.getElementById("msg").addEventListener("keypress", function(e) {
 });
 
 // welcome
-addMessage("Hi 👋\nI’m Sahas Support Bot.\nHow can I help you today?", "bot");
+addMessage("Hi 👋<br>I’m Sahas Support Bot.<br>How can I help you today?", "bot");
 </script>
-<div class="footer" style="text-align:center;">
-  🤖 Sahas Support Chatbot <br>
-  Developed by Mr. Divya Mohan Verma
-</div>
+
 </body>
 </html>
