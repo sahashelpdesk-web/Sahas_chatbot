@@ -134,6 +134,22 @@ def ask(query: str):
 # -------------------------------
 def get_support_template():
     return (
+        "<style>"
+        ".wa-btn {"
+        "  display: inline-block;"
+        "  background-color: #25D366;"
+        "  color: white;"
+        "  padding: 10px 16px;"
+        "  border-radius: 6px;"
+        "  text-decoration: none;"
+        "  font-weight: 500;"
+        "  margin-top: 5px;"
+        "}"
+        ".wa-btn:hover {"
+        "  background-color: #1ebe5d;"
+        "}"
+        "</style>"
+
         "Hmm 🤔 I couldn’t find an exact answer to your question.<br><br>"
         "👉 You can try rephrasing it in a simpler way.<br><br>"
 
@@ -147,17 +163,17 @@ def get_support_template():
 
         "📱 <b>Or contact directly on WhatsApp:</b><br><br>"
 
-        "• HR (Mr. Pawan): "
-        "<a href='https://api.whatsapp.com/send?phone=918800155902&text=Hi%20Pawan%20Sir,%20I%20have%20an%20HR%20query%20from%20Sahas%20chatbot' target='_blank'>"
-        "8800155902</a><br>"
+        "<b>HR</b><br>"
+        "<a class='wa-btn' href='https://api.whatsapp.com/send?phone=918800155902&text=Hi%20Pawan%20Sir,%20I%20have%20an%20HR%20query%20from%20Sahas%20chatbot' target='_blank'>"
+        "💬 Chat on WhatsApp</a><br><br>"
 
-        "• Paybill (Mr. Divya Mohan): "
-        "<a href='https://api.whatsapp.com/send?phone=918840021359&text=Hi%20Sir,%20I%20have%20a%20Paybill%20query%20from%20Sahas%20chatbot' target='_blank'>"
-        "8840021359</a><br>"
+        "<b>Paybill</b><br>"
+        "<a class='wa-btn' href='https://api.whatsapp.com/send?phone=918840021359&text=Hi%20Sir,%20I%20have%20a%20Paybill%20query%20from%20Sahas%20chatbot' target='_blank'>"
+        "💬 Chat on WhatsApp</a><br><br>"
 
-        "• FMS (Mr. Ankur): "
-        "<a href='https://api.whatsapp.com/send?phone=919917670730&text=Hi%20Sir,%20I%20have%20an%20FMS%20query%20from%20Sahas%20chatbot' target='_blank'>"
-        "9917670730</a><br><br>"
+        "<b>FMS</b><br>"
+        "<a class='wa-btn' href='https://api.whatsapp.com/send?phone=919917670730&text=Hi%20Sir,%20I%20have%20an%20FMS%20query%20from%20Sahas%20chatbot' target='_blank'>"
+        "💬 Chat on WhatsApp</a><br><br>"
 
         "Our team will assist you shortly 😊"
     )
