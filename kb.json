@@ -19,12 +19,7 @@
   {"question": "document upload not showing", "answer": "Backend to upload document. User may reinitiate APAR."},
   {"question": "employee class mandatory error", "answer": "Update employee class in designation master."},
   {"question": "wrong ao id entered", "answer": "System should auto-fill AO details as per requirement."},
-  {"question": "increase character limit apar", "answer": "Please remove the text size limitation from the answer field it is solved by frontend , go 
-         to the performance appraisal setup
-        1. Go to APAR question master
-        2. Search for question
-        3. update character limits 
-"},
+  {"question": "increase character limit apar", "answer": "Please remove the text size limitation from the answer field it is solved by frontend , go to the performance appraisal setup 1. Go to APAR question master 2. Search for question 3. update character limits"},
   {"question": "grading copy issue", "answer": "Requirement to auto copy grading from reporting to reviewing."},
   {"question": "ratee officer id not found", "answer": "Authority update provision available if entry pending."},
   {"question": "all fields mandatory apar", "answer": "All fields must be filled before submission."},
