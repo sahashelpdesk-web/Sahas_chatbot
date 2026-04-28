@@ -220,7 +220,11 @@
   {
     "question": "reject bill after freeze salary bill frozen want to reject unfreeze process",
     "answer": "Once a bill is frozen, it cannot be edited directly.\n\n👉 Please use the Salary Bill Unfreeze Process\n\nAfter unfreezing, you can reject or modify the bill."
-  }
+  },
+  {
+    "question": "Kindly reject the bill after it has been freezed.",
+    "answer": "Use the salary bill unfreeze process",
+   }  
 ]
 
   
