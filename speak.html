@@ -39,13 +39,10 @@
 
 <script>
 
-// 🔊 TEXT TO SPEECH (cleaned)
+// 🔊 TEXT TO SPEECH
 function speak(text) {
   const speech = new SpeechSynthesisUtterance(text);
   speech.lang = "en-IN";
-  speech.rate = 1;
-  speech.pitch = 1;
-
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(speech);
 }
@@ -63,13 +60,18 @@ function startListening() {
   recognition.start();
 }
 
-// 🧹 CLEAN TEXT (remove HTML + emojis)
+// 🧹 CLEAN TEXT (fix HTML speaking issue)
 function cleanText(text) {
   return text
-    .replace(/<[^>]*>/g, "") // remove HTML
-    .replace(/[\u{1F600}-\u{1F6FF}]/gu, "") // emojis
-    .replace(/[\u{2700}-\u{27BF}]/gu, "") // symbols
-    .replace(/[^\w\s.,!?]/g, ""); // extra chars
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?>[\s\S]*?<\/style>/gi, "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/https?:\/\/\S+/g, "")
+    .replace(/[\u{1F600}-\u{1F6FF}]/gu, "")
+    .replace(/[\u{2700}-\u{27BF}]/gu, "")
+    .replace(/[^\w\s.,!?]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function timeNow() {
@@ -88,15 +90,29 @@ function addMessage(text, type) {
   chat.scrollTop = chat.scrollHeight;
 }
 
-// SUPPORT MESSAGE
+// ✅ FULL SUPPORT TEMPLATE
 function showSupport() {
   let msg = `
-  Need more help?<br>
-  <a href='mailto:sahas@aiims.edu'>📩 Email Support</a><br><br>
-  <a class='support-btn' href='https://api.whatsapp.com/send?phone=918800155902'>💬 WhatsApp</a>
+  Hmm 🤔 I couldn’t find an exact answer.<br><br>
+
+  📧 <b>Email Support</b><br>
+  <a href='mailto:sahas@aiims.edu?subject=Sahas Support Query&body=Hi Team,'>
+  📩 Send Email</a><br><br>
+
+  📱 <b>WhatsApp Support</b><br><br>
+
+  <b>HR</b><br>
+  <a class='support-btn' href='https://api.whatsapp.com/send?phone=918800155902'>💬 HR</a><br><br>
+
+  <b>Paybill</b><br>
+  <a class='support-btn' href='https://api.whatsapp.com/send?phone=918840021359'>💬 Paybill</a><br><br>
+
+  <b>FMS</b><br>
+  <a class='support-btn' href='https://api.whatsapp.com/send?phone=919917670730'>💬 FMS</a>
   `;
+
   addMessage(msg, "bot");
-  speak("Please contact support for further help");
+  speak("Please contact support via email or WhatsApp");
 }
 
 // SEND MESSAGE
@@ -119,15 +135,28 @@ async function send() {
 
     typing.remove();
 
-    let reply = data.reply.replace(
+    let reply = data.reply || "";
+
+    // if no valid answer → show support
+    if (!reply || reply.length < 5) {
+      showSupport();
+      return;
+    }
+
+    reply = reply.replace(
       "Contact Support",
       `<a href="#" onclick="showSupport()" class="support-btn">Contact Support</a>`
     );
 
     addMessage(reply, "bot");
 
-    // 🔊 SPEAK CLEAN TEXT
-    speak(cleanText(reply));
+    let clean = cleanText(reply);
+
+    if (clean.length < 3 || clean.includes("undefined")) {
+      speak("Sorry, I could not find a proper answer. Please contact support.");
+    } else {
+      speak(clean);
+    }
 
   } catch {
     typing.remove();
@@ -142,9 +171,8 @@ document.getElementById("msg").addEventListener("keypress", function(e) {
 });
 
 // WELCOME
-let welcomeMsg = "Hi, I am Sahas Support Bot. How can I help you today?";
 addMessage("Hi 👋<br>I’m Sahas Support Bot.<br>How can I help you today?", "bot");
-speak(welcomeMsg);
+speak("Hi, I am Sahas Support Bot. How can I help you today?");
 
 </script>
 
