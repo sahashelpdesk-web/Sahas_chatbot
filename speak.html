@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sahas Support Chatbot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #e5ddd5;
+    }
+
+    .header {
+      background: #075e54;
+      color: white;
+      padding: 15px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chat {
+      height: 75vh;
+      overflow-y: auto;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .msg {
+      padding: 10px 12px;
+      margin: 6px 0;
+      border-radius: 10px;
+      max-width: 75%;
+      font-size: 14px;
+    }
+
+    .user {
+      background: #dcf8c6;
+      align-self: flex-end;
+    }
+
+    .bot {
+      background: white;
+      align-self: flex-start;
+    }
+
+    .time {
+      font-size: 10px;
+      color: gray;
+      margin-top: 3px;
+      text-align: right;
+    }
+
+    .input-box {
+      display: flex;
+      padding: 10px;
+      background: #f0f0f0;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 25px;
+      border: none;
+      outline: none;
+    }
+
+    button {
+      margin-left: 10px;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 50%;
+      background: #075e54;
+      color: white;
+      cursor: pointer;
+    }
+
+    .typing {
+      font-style: italic;
+      color: gray;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+      padding: 10px;
+      background: #f9f9f9;
+      border-top: 1px solid #ddd;
+    }
+
+    .support-btn {
+      display: inline-block;
+      padding: 8px 12px;
+      background: #075e54;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  🤖 Sahas Support
+</div>
+
+<div id="chat" class="chat"></div>
+
+<div class="input-box">
+  <input id="msg" placeholder="Type your message..." />
+  <button onclick="send()">➤</button>
+  <button onclick="startListening()">🎤</button>
+</div>
+
+<div class="footer">
+  🤖 Sahas Support Chatbot <br>
+  Developed by Mr. Divya Mohan Verma
+</div>
+
+<script>
+// 🔊 TEXT TO SPEECH
+function speak(text) {
+  const speech = new SpeechSynthesisUtterance(text);
+  speech.lang = "en-IN";
+  speech.rate = 1;
+  speech.pitch = 1;
+
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(speech);
+}
+
+// 🎤 VOICE INPUT
+function startListening() {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = "en-IN";
+
+  recognition.onresult = function(event) {
+    document.getElementById("msg").value = event.results[0][0].transcript;
+    send();
+  };
+
+  recognition.start();
+}
+
+function timeNow() {
+  return new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+}
+
+function addMessage(text, type) {
+  let chat = document.getElementById("chat");
+
+  let div = document.createElement("div");
+  div.className = "msg " + type;
+
+  div.innerHTML = `
+    ${text}
+    <div class="time">${timeNow()}</div>
+  `;
+
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+// SUPPORT TEMPLATE
+function showSupport() {
+  let msg = `
+  Hmm 🤔 I couldn’t find an exact answer to your question.<br><br>
+  👉 You can try rephrasing it in a simpler way.<br><br>
+  📧 <b>Need more help?</b><br>
+  <a href='mailto:sahas@aiims.edu?subject=Sahas Support Query'>📩 Email Support</a><br><br>
+  📱 <b>Or contact directly on WhatsApp:</b><br><br>
+  <b>HR</b><br>
+  <a class='support-btn' href='https://api.whatsapp.com/send?phone=918800155902'>💬 Chat on WhatsApp</a><br><br>
+  Our team will assist you shortly 😊
+  `;
+
+  addMessage(msg, "bot");
+  speak("Please contact support for further help");
+}
+
+async function send() {
+  let input = document.getElementById("msg");
+  let text = input.value.trim();
+
+  if (!text) return;
+
+  addMessage(text, "user");
+  input.value = "";
+
+  let typing = document.createElement("div");
+  typing.className = "msg bot typing";
+  typing.innerText = "Typing...";
+  document.getElementById("chat").appendChild(typing);
+
+  try {
+    let res = await fetch(`/ask?query=${encodeURIComponent(text)}`);
+    let data = await res.json();
+
+    typing.remove();
+
+    let reply = data.reply.replace(
+      "Contact Support",
+      `<a href="#" onclick="showSupport()" class="support-btn">Contact Support</a>`
+    );
+
+    addMessage(reply, "bot");
+
+    // 🔊 SPEAK RESPONSE (remove HTML)
+    let plainText = reply.replace(/<[^>]*>/g, "");
+    speak(plainText);
+
+  } catch {
+    typing.remove();
+    addMessage("Server error ❌", "bot");
+    speak("Server error");
+  }
+}
+
+// ENTER KEY
+document.getElementById("msg").addEventListener("keypress", function(e) {
+  if (e.key === "Enter") send();
+});
+
+// WELCOME MESSAGE
+let welcomeMsg = "Hi, I am Sahas Support Bot. How can I help you today?";
+addMessage("Hi 👋<br>I’m Sahas Support Bot.<br>How can I help you today?", "bot");
+speak(welcomeMsg);
+
+</script>
+
+</body>
+</html>
