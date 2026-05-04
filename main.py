@@ -1,10 +1,14 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 import json
 from rapidfuzz import fuzz
 from datetime import datetime
 
 app = FastAPI()
+
+# ✅ STATIC FILES (IMPORTANT FOR IMAGES)
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # -------------------------------
 # 📂 LOAD KB
@@ -65,7 +69,7 @@ def search_kb(query):
             best_match = item
 
     if best_score >= 65:
-        return best_match["answer"]
+        return best_match   # ✅ RETURN FULL OBJECT
 
     return None
 
@@ -114,15 +118,23 @@ def ask(query: str):
     answer = search_kb(query)
 
     if answer:
-        return {
-            "reply": (
-                "💡 <b>Answer to your query:</b><br><br>"
-                f"{answer}<br><br>"
-                "👍 Hope this helps!<br><br>"
-                "<a href='#' onclick='showSupport()' "
-                "style='color:#075e54;font-weight:bold;'>👉 Contact Support</a>"
-            )
-        }
+        reply = (
+            "💡 <b>Answer to your query:</b><br><br>"
+            f"{answer['answer']}<br><br>"
+        )
+
+        # ✅ SHOW IMAGES IF PRESENT
+        if "images" in answer:
+            for img in answer["images"]:
+                reply += f"<img src='{img}' style='max-width:100%;border-radius:8px;margin-top:10px;'/>"
+
+        reply += (
+            "<br><br>👍 Hope this helps!<br><br>"
+            "<a href='#' onclick='showSupport()' "
+            "style='color:#075e54;font-weight:bold;'>👉 Contact Support</a>"
+        )
+
+        return {"reply": reply}
 
     # ❌ Fallback
     return {
@@ -130,7 +142,7 @@ def ask(query: str):
     }
 
 # -------------------------------
-# 📞 SUPPORT TEMPLATE (REUSABLE)
+# 📞 SUPPORT TEMPLATE
 # -------------------------------
 def get_support_template():
     return (
@@ -164,15 +176,15 @@ def get_support_template():
         "📱 <b>Or contact directly on WhatsApp:</b><br><br>"
 
         "<b>HR</b><br>"
-        "<a class='wa-btn' href='https://api.whatsapp.com/send?phone=918800155902&text=Hi%20Pawan%20Sir,%20I%20have%20an%20HR%20query%20from%20Sahas%20chatbot' target='_blank'>"
+        "<a class='wa-btn' href='https://api.whatsapp.com/send?phone=918800155902' target='_blank'>"
         "💬 Chat on WhatsApp</a><br><br>"
 
         "<b>Paybill</b><br>"
-        "<a class='wa-btn' href='https://api.whatsapp.com/send?phone=918840021359&text=Hi%20Sir,%20I%20have%20a%20Paybill%20query%20from%20Sahas%20chatbot' target='_blank'>"
+        "<a class='wa-btn' href='https://api.whatsapp.com/send?phone=918840021359' target='_blank'>"
         "💬 Chat on WhatsApp</a><br><br>"
 
         "<b>FMS</b><br>"
-        "<a class='wa-btn' href='https://api.whatsapp.com/send?phone=919917670730&text=Hi%20Sir,%20I%20have%20an%20FMS%20query%20from%20Sahas%20chatbot' target='_blank'>"
+        "<a class='wa-btn' href='https://api.whatsapp.com/send?phone=919917670730' target='_blank'>"
         "💬 Chat on WhatsApp</a><br><br>"
 
         "Our team will assist you shortly 😊"
