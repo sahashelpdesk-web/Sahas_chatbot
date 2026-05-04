@@ -164,12 +164,21 @@
     "question": "salary not provided for some days partial salary missing salary incomplete month",
     "answer": "This happens when salary is not processed for all days.\n\n👉 Please set Partial Salary first.\n👉 Then process Supplementary Salary.\n\nThis will ensure complete salary processing."
   },
-{
+  {
   "question": "unable to login account locked forgot password login issue cannot login password problem",
-  "answer": "No worries 👍 You can reset your password easily:<br><br>1️⃣ Click on 'Forgot Password'<br>2️⃣ Enter your User ID (Employee Number)<br>3️⃣ Enter your registered mobile number<br>4️⃣ Enter OTP received on your phone<br>5️⃣ Set a new password<br><br>You should be able to log in after this.",
-  "images": [
-    "/static/images/login.png"
-  ]
+  "answer": "No worries 👍 You can reset your password easily:<br><br>
+1️⃣ Click on 'Forgot Password'<br>
+<img src='/static/images/login.png' style='max-width:100%;border-radius:8px;margin:10px 0;'><br>
+
+2️⃣ Enter your User ID (Employee Number)<br>
+3️⃣ Enter your registered mobile number<br>
+<img src='/static/images/Screenshot_2026_05_04_151754.png' style='max-width:100%;border-radius:8px;margin:10px 0;'><br>
+
+4️⃣ Enter OTP received on your phone<br>
+<img src='/static/images/Screenshot_2026_05_04_154357.png' style='max-width:100%;border-radius:8px;margin:10px 0;'><br>
+
+5️⃣ Set a new password<br><br>
+You should be able to log in after this."
 },
 
   {
