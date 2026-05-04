@@ -166,20 +166,8 @@
   },
   {
   "question": "unable to login account locked forgot password login issue cannot login password problem",
-  "answer": "No worries 👍 You can reset your password easily:<br><br>
-1️⃣ Click on 'Forgot Password'<br>
-<img src='/static/images/login.png' style='max-width:100%;border-radius:8px;margin:10px 0;'><br>
-
-2️⃣ Enter your User ID (Employee Number)<br>
-3️⃣ Enter your registered mobile number<br>
-<img src='/static/images/Screenshot_2026_05_04_151754.png' style='max-width:100%;border-radius:8px;margin:10px 0;'><br>
-
-4️⃣ Enter OTP received on your phone<br>
-<img src='/static/images/Screenshot_2026_05_04_154357.png' style='max-width:100%;border-radius:8px;margin:10px 0;'><br>
-
-5️⃣ Set a new password<br><br>
-You should be able to log in after this."
-},
+  "answer": "No worries 👍 You can reset your password easily:<br><br>1️⃣ Click on 'Forgot Password'<br><img src='/static/images/login.png' style='max-width:100%;border-radius:8px;margin:10px 0;'><br>2️⃣ Enter your User ID (Employee Number)<br>3️⃣ Enter your registered mobile number<br><img src='/static/images/Screenshot_2026_05_04_151754.png' style='max-width:100%;border-radius:8px;margin:10px 0;'><br>4️⃣ Enter OTP received on your phone<br><img src='/static/images/Screenshot_2026_05_04_154357.png' style='max-width:100%;border-radius:8px;margin:10px 0;'><br>5️⃣ Set a new password<br><br>You should be able to log in after this."
+  },
 
   {
     "question": "record not found in hr bank account update pfms number not found employee hr mapping issue",
